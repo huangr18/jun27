@@ -1,0 +1,48 @@
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Fifth navbar example">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#">Expand at lg</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarsExample05">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                </li>
+                </ul>
+                <form role="search">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                </form>
+            </div>
+            </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8  offset-lg-2">
+    
+                
+                
+                <form method="post" action="{{ url_for('tasks') }}">
+                <input type="submit" value="Stop/Start" name="stop" />
+                <input type="submit" value="Capture" name="click"/>
+                <input type="submit" value="Grey" name="grey" />
+                <input type="submit" value="Negative" name="neg" />
+                <input type="submit" value="Face Only" name="face" />
+                <input type="submit" value="Start/Stop Recording" name="rec" />
+                </form>
+                <img src="{{ url_for('video_feed') }}" height="80%">
+                <h3 style="font-family:courier;">Instructions:</h3>
+                <ol style="font-family:courier;">
+                
+            </div>
+        </div>
+    </div>
+    </body>
