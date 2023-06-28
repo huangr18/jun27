@@ -22,9 +22,10 @@ def runcv(filename):
     frame_height = 300
     size = (700, 500)
     result_filename = "result_" + filename
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     result = cv2.VideoWriter("static/result/%s" %result_filename, 
-                         cv2.VideoWriter_fourcc(*'H264'),
-                         10, size)
+                         fourcc,
+                         30, size)
 
     while True:
         success, img = cap.read()
@@ -87,13 +88,14 @@ def runcv(filename):
             pTime = cTime
             cv2.putText(img, str(count), (50, 100), cv2.FONT_HERSHEY_PLAIN, 5, (255, 0, 0), 5)
 
-            result.write(img)
+            
 
             cv2.imshow("Image", img)
             cv2.waitKey(1)
+            result.write(img)
         else:
-            result.release()
             cap.release()
+            result.release()
             # os.system("ffmpeg -i %s - vcodec libx264 %s"%result_filename%result_filename)
             # ffmpeg.input('result/%s'%result_filename).output('result/%s'%result_filename).run()
             cv2.destroyAllWindows()

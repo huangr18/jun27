@@ -91,6 +91,7 @@ def video(filename):
     if "firstname" in session:
         username = session["username"]
         result_filename = runcv(filename)
+        convert(result_filename)
         # result_filename = convert(result_filename)
     return render_template('video.html', username=username, result_filename=result_filename, filename=filename)
 

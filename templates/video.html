@@ -8,7 +8,9 @@
     <title>Result</title>
 </head>
 <body>
-<h1>????????
+    {% include 'navbar.html' %}
+    <h1>Your Result</h1>
+<h1>
     {{ url_for('static',filename='result/' + result_filename) }}
 </h1>
 
