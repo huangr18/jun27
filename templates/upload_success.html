@@ -9,11 +9,16 @@
 </head>
 <body>
     {% include 'navbar.html' %}
-    {{ filename }}
-    {{ add_video }}
+    <!-- {{ filename }}
+    {{ add_video }} 
     <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="/video/{{ filename }}">Active</a>
     </li>
+    -->
+<br><br><br>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a class="btn btn-primary btn-lg" href="/video/{{ filename }}" role="button">Start analyzed</a>
+</div>
     
 </body>
 </html>

@@ -54,3 +54,18 @@ def add_video_from_db(username, video_name):
             print(row)
         return all_videos
     
+def get_user(username):
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM uploaded_videos WHERE username = '%s'" %username))
+        all_videos = []
+        for row in result.all():
+            all_videos.append(dict(row))
+            print(row)
+        return all_videos
+    
+
+def user_register(username, firstname, email, password):
+    with engine.connect() as conn:
+        query = text("INSERT INTO users (username, firstname, email, password ) values (:username, :firstname, :email, :password)")
+        conn.execute(query, username=username, firstname=firstname, email=email, password=password)
+    return "success"

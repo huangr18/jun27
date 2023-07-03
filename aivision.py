@@ -42,7 +42,7 @@ def runcv(filename):
             if len(lmList) != 0:
                 # Right Arm
                 upAngle = detector.findAngle(img, 16, 0, 15, False)
-                lowAngle = detector.findAngle(img, 28, 24, 27)
+                lowAngle = detector.findAngle(img, 28, 24, 27, False)
 
                 upper = np.interp(upAngle,(30, 300), (100, 0))
                 lowper = np.interp(lowAngle,(340, 350), (100, 0)) 
@@ -99,7 +99,8 @@ def runcv(filename):
             # os.system("ffmpeg -i %s - vcodec libx264 %s"%result_filename%result_filename)
             # ffmpeg.input('result/%s'%result_filename).output('result/%s'%result_filename).run()
             cv2.destroyAllWindows()
-            break
-    return result_filename
+
+            return result_filename
+
             
         

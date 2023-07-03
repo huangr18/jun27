@@ -24,3 +24,9 @@ form {
     margin: 0 auto 0 auto;
     color:aliceblue;
 }
+
+#banner {
+    width:100%;
+    height: 360px;
+    object-fit: cover;
+}

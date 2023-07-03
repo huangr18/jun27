@@ -1,0 +1,19 @@
+body {
+    background-color: #222;
+    color:azure;
+    margin: 0 auto 0 auto;
+}
+
+form {
+    max-width: 720px;
+    margin: 0 auto 0 auto;
+    color:aliceblue;
+}
+button {
+    text-align: center;
+    margin: 0 auto 0 auto;
+}
+
+#emailHelp {
+    color: rgb(47, 113, 170);
+}

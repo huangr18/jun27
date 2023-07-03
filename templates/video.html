@@ -11,10 +11,10 @@
     {% include 'navbar.html' %}
     <h1>Your Result</h1>
 <h1>
-    {{ url_for('static',filename='result/' + result_filename) }}
+    {{ url_for('static',filename='result/con' + result_filename) }}
 </h1>
 
-    <video controls muted src="{{ url_for('static',filename='result/' + result_filename) }}" width="700" height="500">
+    <video controls muted src="{{ url_for('static',filename='result/con' + result_filename) }}" width="700" height="500">
         <source src="result/v10.mp4">
     </video>
 </body>

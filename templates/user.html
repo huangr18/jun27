@@ -12,10 +12,13 @@
     <h2>Logged in as {{ firstname }}</h2>
     <br>
 
+
+    <br>
     <form method='POST' enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         {{ form.file() }}
         {{ form.submit() }}
     </form>
+    <br><br>
 </body>
 </html>

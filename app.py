@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, flash, Response
-from db import load_users_from_db, get_user_firstname_from_db, get_username_from_db, add_video_from_db
+from db import load_users_from_db, get_user_firstname_from_db, get_username_from_db, add_video_from_db, get_user,user_register
 from datetime import timedelta
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
@@ -27,7 +27,7 @@ class UploadFileForm(FlaskForm):
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html')
+    return render_template('home.html', company_name='AI Training Center')
 
 #see users
 @app.route("/api/get_users")
@@ -40,6 +40,7 @@ def api_user():
     user = get_user_firstname_from_db('jimh01@gmail.com')
 
     return user
+
 
 #login page
 @app.route("/login", methods=['GET', 'POST'])
@@ -61,6 +62,14 @@ def user():
     if "firstname" in session:
         firstname = session["firstname"]
         username = session["username"]
+
+        user_past_video = get_user(username)
+        # for video in user_past_video:
+        #     user_past_video = video.get('video_name')
+        
+
+
+
         form = UploadFileForm()
         if form.validate_on_submit():
             file = form.file.data
@@ -70,7 +79,7 @@ def user():
             add_video = add_video_from_db(username, filename)
             return render_template('upload_success.html', filename=filename, add_video=add_video)
         
-        return render_template('user.html', firstname=firstname, form=form)
+        return render_template('user.html', firstname=firstname, form=form, user_past_video=user_past_video)
     else:
         if "firstname" in session:
             return redirect(url_for("user"))
@@ -91,7 +100,7 @@ def video(filename):
     if "firstname" in session:
         username = session["username"]
         result_filename = runcv(filename)
-        convert(result_filename)
+        result_filename = convert(result_filename)
         # result_filename = convert(result_filename)
     return render_template('video.html', username=username, result_filename=result_filename, filename=filename)
 
@@ -112,5 +121,41 @@ def api_test():
 
 
 
+
+# register
+@app.route("/register", methods=['GET','POST']) 
+def register():
+    if request.method == "POST":
+        username = request.form['username']
+        firstname = request.form['firstname']
+        email = request.form['email']
+        password = request.form['password']
+        status = user_register(username, firstname, email, password)
+        return status
+
+    return render_template('register.html')
+
+
+# history
+@app.route("/history", methods=['GET','POST']) 
+def history():
+    if "firstname" in session:
+        username = session["username"]
+
+    user_past_video = get_user(username)
+    return render_template('history.html', user_past_video=user_past_video)
+
+
+# past result
+@app.route("/past/<video_name>", methods=['GET','POST']) 
+def pastresult_display(video_name):
+    if "firstname" in session:
+        username = session["username"]
+    
+
+    return render_template('pastresult_display.html', username=username, video_name=video_name)
+
+
+
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug="True")
