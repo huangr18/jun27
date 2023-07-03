@@ -41,6 +41,16 @@ def get_username_from_db(email):
             user.append(dict(row))
         username = user[0].get('username')
         return username
+    
+
+def get_password_from_db(email):
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM users WHERE email = '%s'" %email))
+        user = []
+        for row in result.all():
+            user.append(dict(row))
+        password = user[0].get('password')
+        return password
 
 
 def add_video_from_db(username, video_name):
@@ -69,3 +79,11 @@ def user_register(username, firstname, email, password):
         query = text("INSERT INTO users (username, firstname, email, password ) values (:username, :firstname, :email, :password)")
         conn.execute(query, username=username, firstname=firstname, email=email, password=password)
     return "success"
+
+
+def update(video_name, time):
+    with engine.connect() as conn:
+        iwantupdate = "UPDATE uploaded_videos SET timesdone = %s WHERE video_name = '%s'"%(time, video_name)
+        query = text(iwantupdate)
+        conn.execute(query)
+    return time

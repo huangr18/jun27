@@ -8,8 +8,9 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS uploaded_videos (
     video_id             SERIAL              PRIMARY KEY,
-    video_name           TEXT,
-    username             TEXT                NOT NULL
+    video_name           TEXT                NOT NULL,
+    username             TEXT                NOT NULL,
+    timesdone            NUMERIC
 );
 
 

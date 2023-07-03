@@ -93,14 +93,16 @@ def runcv(filename):
             cv2.imshow("Image", img)
             cv2.waitKey(1)
             result.write(img)
+             
         else:
             cap.release()
             result.release()
             # os.system("ffmpeg -i %s - vcodec libx264 %s"%result_filename%result_filename)
             # ffmpeg.input('result/%s'%result_filename).output('result/%s'%result_filename).run()
             cv2.destroyAllWindows()
+            total = [result_filename, count]
 
-            return result_filename
+            return total
 
             
         

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="static/home.css" rel="stylesheet">
+    <link href="static/upload_success.css" rel="stylesheet">
     <title>File Uploaded</title>
 </head>
 <body>
@@ -15,10 +16,31 @@
         <a class="nav-link active" aria-current="page" href="/video/{{ filename }}">Active</a>
     </li>
     -->
-<br><br><br>
+<br><br>
+
+<!-- <div id="showt">
+    <h1>Please wait, loading ...</h1>
+    <p style="text-align: center;">This would take a while (the time approx. is roughly however long the video you submitted) </p>
+</div> -->
+
+<br>
 <div class="d-grid gap-2 col-6 mx-auto">
-    <a class="btn btn-primary btn-lg" href="/video/{{ filename }}" role="button">Start analyzed</a>
+    <a class="btn btn-primary btn-lg" href="/video/{{ filename }}" role="button" onclick="this.classList.toggle('button--loading'); myFunction()">Start analyzing</a>
 </div>
-    
+
+
 </body>
+
+<script>
+    function myFunction() {
+  var x = document.getElementById("showt");
+  if (x.style.display == "block") { // `=` to `==` or `===`
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+</script>
+
+
 </html>

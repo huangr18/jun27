@@ -12,6 +12,7 @@
     <h1>Your Result</h1>
 <h1>
     {{ url_for('static',filename='result/con' + result_filename) }}
+    You have done {{ timesdone }} jumping jacks
 </h1>
 
     <video controls muted src="{{ url_for('static',filename='result/con' + result_filename) }}" width="700" height="500">

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, flash, Response
-from db import load_users_from_db, get_user_firstname_from_db, get_username_from_db, add_video_from_db, get_user,user_register
+from db import load_users_from_db, get_user_firstname_from_db, get_username_from_db, add_video_from_db, get_user,user_register, get_password_from_db, update
 from datetime import timedelta
 from flask_wtf import FlaskForm
 from wtforms import FileField, SubmitField
@@ -48,11 +48,16 @@ def login():
     if request.method == "POST":
         session.permanent = True
         email = request.form['email']
+        submit_password = request.form['password']
         firstname = get_user_firstname_from_db(email)
         username = get_username_from_db(email)
-        session["firstname"] = firstname
-        session["username"] = username
-        return redirect(url_for('user'))
+        password = get_password_from_db(email)
+        if submit_password == password:
+            session["firstname"] = firstname
+            session["username"] = username
+            return redirect(url_for('user'))
+        else:
+            return render_template('login.html')
     else:
         return render_template('login.html')
 
@@ -100,9 +105,12 @@ def video(filename):
     if "firstname" in session:
         username = session["username"]
         result_filename = runcv(filename)
+        timesdone = update(filename, result_filename[1])
+        result_filename = result_filename[0]
         result_filename = convert(result_filename)
+        
         # result_filename = convert(result_filename)
-    return render_template('video.html', username=username, result_filename=result_filename, filename=filename)
+    return render_template('video.html', username=username, result_filename=result_filename, filename=filename, timesdone=timesdone)
 
     
 
@@ -142,8 +150,10 @@ def history():
     if "firstname" in session:
         username = session["username"]
 
-    user_past_video = get_user(username)
-    return render_template('history.html', user_past_video=user_past_video)
+        user_past_video = get_user(username)
+        return render_template('history.html', user_past_video=user_past_video)
+    else:
+        return redirect(url_for("login"))
 
 
 # past result
@@ -151,9 +161,10 @@ def history():
 def pastresult_display(video_name):
     if "firstname" in session:
         username = session["username"]
-    
 
-    return render_template('pastresult_display.html', username=username, video_name=video_name)
+        return render_template('pastresult_display.html', username=username, video_name=video_name)
+    else:
+        return redirect(url_for("login"))
 
 
 
