@@ -24,7 +24,7 @@ class UploadFileForm(FlaskForm):
 
 
 #home page
-@app.route("/")
+
 @app.route("/home")
 def home():
     return render_template('home.html', company_name='AI Training Center')
@@ -43,6 +43,7 @@ def api_user():
 
 
 #login page
+@app.route("/")
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == "POST":

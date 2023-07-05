@@ -12,7 +12,6 @@
   </head>
   <body>
     {% include 'navbar.html' %}
-    <h1>Hello, world!</h1>
     <br>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -30,19 +29,43 @@
           <img class="img-fluid" id="banner" src = "static/banner.jpeg" height="320">
           <br>
           <br>
-          <p> Here you will have a selection of exercises to choose from.  Each of 
-            them are fitted with an AI program to help you on your exercising journey.
-          </p>
           <br>
           <h2>Choose Your Excercise Type</h2>
+          <!-- <p> Here you will have a selection of exercises to choose from.  Each of 
+            them are fitted with an AI program to help you on your exercising journey.
+          </p> -->
           <br>
 
           <div class="scrolling-wrapper">
-            <div class="card text-bg-secondary border-info w-20 mb-3" style="width: 22rem; margin-left: 20px;">
+            <div class="card text-bg-secondary border-info w-20 mb-3 text-center" style="width: 30rem; margin-left: 20px;">
               <div class="card-body">
+                <img id="jumping-jacks" src="static/jumping-jacks.png" class="card-img-top img-fluid" alt="...">
                 <h5 class="card-title">Jumping-Jacks</h5>
+                <br>
                 <h6 class="card-subtitle mb-2 text-body-secondary">Description</h6>
-                <p class="card-text">Description Details</p>
+                <p class="card-text">There are over 500 starfish in the bathroom drawer.</p>
+                <a href="{{ url_for('user') }}" class="btn btn-primary">Start Program</a>
+              </div>
+            </div>
+
+            <div class="card text-bg-secondary border-info w-20 mb-3 text-center" style="width: 30rem; margin-left: 20px;">
+              <div class="card-body">
+                <img id="jumping-jacks" src="static/squats.png" class="card-img-top img-fluid" alt="...">
+                <h5 class="card-title">Squats</h5>
+                <br>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Description</h6>
+                <p class="card-text">There are over 500 starfish in the bathroom drawer.</p>
+                <a href="{{ url_for('user') }}" class="btn btn-primary">Start Program</a>
+              </div>
+            </div>
+
+            <div class="card text-bg-secondary border-info w-20 mb-3 text-center" style="width: 30rem; margin-left: 20px;">
+              <div class="card-body">
+                <img id="jumping-jacks" src="static/jumping-jacks.png" class="card-img-top img-fluid" alt="...">
+                <h5 class="card-title">Jumping-Jacks</h5>
+                <br>
+                <h6 class="card-subtitle mb-2 text-body-secondary">Description</h6>
+                <p class="card-text">There are over 500 starfish in the bathroom drawer.</p>
                 <a href="{{ url_for('user') }}" class="btn btn-primary">Start Program</a>
               </div>
             </div>
@@ -52,7 +75,7 @@
 
 
           <br>
-          <p>Need help?</p>
+          <h4>Need help?</h4>
           <button class="btn btn-primary">Help</button>
       </div>
       <br>
