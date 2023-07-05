@@ -48,7 +48,7 @@ def runcv(filename):
                 lowper = np.interp(lowAngle,(340, 350), (100, 0)) 
 
                 per = (upper + lowper) / 2 
-                print(lowAngle, lowper)
+                # print(lowAngle, lowper)
                 #print(raper)
 
                 upbar = np.interp(upAngle,(30, 300), (100, 400))
@@ -90,8 +90,8 @@ def runcv(filename):
 
             
 
-            cv2.imshow("Image", img)
-            cv2.waitKey(1)
+            #cv2.imshow("Image", img)
+            #cv2.waitKey(1)
             result.write(img)
              
         else:
