@@ -105,4 +105,4 @@ def runcv(filename):
             return total
 
             
-        
+# runcv("v7.mp4")
