@@ -18,14 +18,15 @@ def runcv(filename):
     color = (225, 0 ,225)
     bar = 0
     per = 0
-    frame_width = 300
-    frame_height = 300
-    size = (700, 500)
+    width  = int(cap.get(3)) # float `width`
+    height = int(cap.get(4))
+    size = (width, height)
+    fps = cap.get(cv2.CAP_PROP_FPS)
     result_filename = "result_" + filename
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     result = cv2.VideoWriter("static/result/%s" %result_filename, 
                          fourcc,
-                         30, size)
+                         fps, size)
 
     while True:
         success, img = cap.read()
@@ -46,25 +47,25 @@ def runcv(filename):
 
                 upper = np.interp(upAngle,(30, 300), (100, 0))
                 lowper = np.interp(lowAngle,(340, 350), (100, 0)) 
-
+                per = lowper
                 per = (upper + lowper) / 2 
                 # print(lowAngle, lowper)
-                #print(raper)
+                print(per)
 
-                upbar = np.interp(upAngle,(30, 300), (100, 400))
-                lowbar = np.interp(lowAngle,(340, 350), (100, 400))
-
+                upbar = np.interp(upAngle,(30, 300), (int(height / 8), int(height / 1.5)))
+                lowbar = np.interp(lowAngle,(340, 350), (int(height / 8), int(height / 1.5)))
+                # bar = lowbar
                 bar = (upbar + lowbar) / 2
                 #print(bar)
 
                 # check jumping jacks
                 color = (255, 0 ,255)
-                if upper and lowper == 100:
+                if per == 100:
                     color = (0, 255, 0)
                     if dir == 0:
                         count += 0.5
                         dir = 1
-                if upper and lowper == 0:
+                if per == 0:
                     color = (0, 255, 0)
                     if dir == 1:
                         count += 0.5
@@ -75,10 +76,11 @@ def runcv(filename):
             #print(count)
 
             # Bar x+75
-            cv2.rectangle(img, (600, 100), (650, 400), color, 3)
-            cv2.rectangle(img, (600, int(bar)), (650, 400), color, cv2.FILLED)
+            cv2.rectangle(img, (int(width / 1.1), int(height / 8)), (int(width / 1.05), int(height / 1.5)), color, 3)
+            cv2.rectangle(img, (int(width / 1.1), int(bar)), (int(width / 1.05), int(height / 1.5)), color, cv2.FILLED)
             #print(bar)
-            cv2.putText(img, f'{int(per)}%', (550, 50), cv2.FONT_HERSHEY_PLAIN, 2, color, 3)
+            cv2.putText(img, f'{int(per)}%', (int(width / 1.1), int(height / 10)), cv2.FONT_HERSHEY_PLAIN, 2, color, 3)
+
 
             #cv2.rectangle(img, (0,450), (250, 720), (0, 255, 0), cv2.FILLED)
             #cv2.putText(img, str(int(count)), (45, 670), cv2.FONT_HERSHEY_PLAIN, 15, (255, 0, 0), 25)
