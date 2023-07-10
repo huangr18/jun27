@@ -90,8 +90,8 @@ def runcv(filename):
 
             
 
-            #cv2.imshow("Image", img)
-            #cv2.waitKey(1)
+            cv2.imshow("Image", img)
+            cv2.waitKey(1)
             result.write(img)
              
         else:
@@ -105,4 +105,4 @@ def runcv(filename):
             return total
 
             
-# runcv("v7.mp4")
+runcv("v7.mp4")

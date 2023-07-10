@@ -50,12 +50,12 @@ while True:
             per = (lLegper + rLegper + lHipper + rHipper) / 4
             # # print(lowAngle, lowper)
             # #print(raper)
-            print(img.shape)
+            # print(img.shape)
 
-            # upbar = np.interp(upAngle,(30, 300), (100, 400))
-            # lowbar = np.interp(lowAngle,(340, 350), (100, 400))
+            lLegbar = np.interp(lLegAngle,(190, 280), (int(height / 8), int(height / 1.5)))
+            rLegbar = np.interp(rLegAngle, (190, 280), (int(height / 8), int(height / 1.5)))
 
-            # bar = (upbar + lowbar) / 2
+            bar = (lLegbar + rLegbar) / 2
             # #print(bar)
 
             # check jumping jacks
@@ -76,10 +76,10 @@ while True:
         #print(count)
 
         # Bar x+75
-        # cv2.rectangle(img, (600, 100), (650, 400), color, 3)
-        # cv2.rectangle(img, (600, int(bar)), (650, 400), color, cv2.FILLED)
+        cv2.rectangle(img, (int(width / 1.1), int(height / 8)), (int(width / 1.05), int(height / 1.5)), color, 3)
+        cv2.rectangle(img, (int(width / 1.1), int(bar)), (int(width / 1.05), int(height / 1.5)), color, cv2.FILLED)
         # #print(bar)
-        # cv2.putText(img, f'{int(per)}%', (550, 50), cv2.FONT_HERSHEY_PLAIN, 2, color, 3)
+        cv2.putText(img, f'{int(per)}%', (int(width / 1.1), int(height / 10)), cv2.FONT_HERSHEY_PLAIN, 2, color, 3)
 
         #cv2.rectangle(img, (0,450), (250, 720), (0, 255, 0), cv2.FILLED)
         #cv2.putText(img, str(int(count)), (45, 670), cv2.FONT_HERSHEY_PLAIN, 15, (255, 0, 0), 25)
