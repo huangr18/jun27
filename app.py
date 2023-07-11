@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 import os
 from wtforms.validators import InputRequired
 from aivision import runcv
+from squat import squatscv
 
 from test import gen_frames
 from video_convert import convert
@@ -78,12 +79,13 @@ def user():
 
         form = UploadFileForm()
         if form.validate_on_submit():
+            type = "Jumping-Jacks"
             file = form.file.data
             filename = file.filename
             filename = username + filename
             file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], secure_filename(filename)))
             add_video = add_video_from_db(username, filename)
-            return render_template('upload_success.html', filename=filename, add_video=add_video)
+            return render_template('upload_success.html', filename=filename, add_video=add_video, type=type)
         
         return render_template('user.html', firstname=firstname, form=form, user_past_video=user_past_video)
     else:
@@ -101,6 +103,38 @@ def user():
 #         return Response(runcv(filename), mimetype='multipart/x-mixed-replace; boundary=frame')
 #     return render_template('upload_success.html')
 
+
+@app.route("/user/squat", methods=['GET', 'POST'])
+def squat():
+    if "firstname" in session:
+        firstname = session["firstname"]
+        username = session["username"]
+
+        user_past_video = get_user(username)
+        # for video in user_past_video:
+        #     user_past_video = video.get('video_name')
+        
+
+
+
+        form = UploadFileForm()
+        if form.validate_on_submit():
+            type = "Squats"
+            file = form.file.data
+            filename = file.filename
+            filename = username + filename
+            file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], secure_filename(filename)))
+            add_video = add_video_from_db(username, filename)
+            return render_template('upload_success.html', filename=filename, add_video=add_video, type=type)
+        
+        return render_template('user.html', firstname=firstname, form=form, user_past_video=user_past_video)
+    else:
+        if "firstname" in session:
+            return redirect(url_for("user"))
+        
+        return redirect(url_for("login"))
+
+
 @app.route("/video/<filename>", methods=['GET', 'POST'])
 def video(filename):
     if "firstname" in session:
@@ -112,7 +146,20 @@ def video(filename):
 
     
         # result_filename = convert(result_filename)
-    return render_template('video.html', username=username, result_filename=result_filename, filename=filename, timesdone=timesdone)
+    return render_template('video.html', username=username, result_filename=result_filename, filename=filename, timesdone=timesdone, type="Jumping-Jacks")
+
+@app.route("/video/squat/<filename>", methods=['GET', 'POST'])
+def squat_video(filename):
+    if "firstname" in session:
+        username = session["username"]
+        result_filename = squatscv(filename)
+        timesdone = update(filename, result_filename[1])
+        result_filename = result_filename[0]
+        result_filename = convert(result_filename)
+
+    
+        # result_filename = convert(result_filename)
+    return render_template('video.html', username=username, result_filename=result_filename, filename=filename, timesdone=timesdone, type="Squats")
 
     
 

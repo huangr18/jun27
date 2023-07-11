@@ -5,6 +5,7 @@ import PoseModule as pm
 from flask import render_template
 import os
 import ffmpeg
+import math
 
 # run on camera
 #cap = cv2.VideoCapture(0)
@@ -50,7 +51,7 @@ def runcv(filename):
                 per = lowper
                 per = (upper + lowper) / 2 
                 # print(lowAngle, lowper)
-                print(per)
+                # print(per)
 
                 upbar = np.interp(upAngle,(30, 300), (int(height / 8), int(height / 1.5)))
                 lowbar = np.interp(lowAngle,(340, 350), (int(height / 8), int(height / 1.5)))
@@ -92,8 +93,8 @@ def runcv(filename):
 
             
 
-            cv2.imshow("Image", img)
-            cv2.waitKey(1)
+            # cv2.imshow("Image", img)
+            # cv2.waitKey(1)
             result.write(img)
              
         else:
@@ -102,9 +103,9 @@ def runcv(filename):
             # os.system("ffmpeg -i %s - vcodec libx264 %s"%result_filename%result_filename)
             # ffmpeg.input('result/%s'%result_filename).output('result/%s'%result_filename).run()
             cv2.destroyAllWindows()
-            total = [result_filename, count]
+            total = [result_filename, math.floor(count)]
 
             return total
 
             
-runcv("v7.mp4")
+# runcv("v7.mp4")
