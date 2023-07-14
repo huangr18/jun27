@@ -53,10 +53,10 @@ def get_password_from_db(email):
         return password
 
 
-def add_video_from_db(username, video_name):
+def add_video_from_db(username, video_name, exercise_type):
     with engine.connect() as conn:
-        query = text("INSERT INTO uploaded_videos (username, video_name ) values (:username, :video_name)")
-        conn.execute(query, username=username, video_name=video_name)
+        query = text("INSERT INTO uploaded_videos (username, video_name, exercise_type, upload_time) values (:username, :video_name, :exercise_type, CURRENT_TIMESTAMP)")
+        conn.execute(query, username=username, video_name=video_name, exercise_type=exercise_type)
         result = conn.execute(text("SELECT * FROM uploaded_videos WHERE username = '%s'" %username))
         all_videos = []
         for row in result.all():

@@ -84,7 +84,7 @@ def user():
             filename = file.filename
             filename = username + filename
             file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], secure_filename(filename)))
-            add_video = add_video_from_db(username, filename)
+            add_video = add_video_from_db(username, filename, type)
             return render_template('upload_success.html', filename=filename, add_video=add_video, type=type)
         
         return render_template('user.html', firstname=firstname, form=form, user_past_video=user_past_video)
@@ -124,7 +124,7 @@ def squat():
             filename = file.filename
             filename = username + filename
             file.save(os.path.join(os.path.abspath(os.path.dirname(__file__)), app.config['UPLOAD_FOLDER'], secure_filename(filename)))
-            add_video = add_video_from_db(username, filename)
+            add_video = add_video_from_db(username, filename, type)
             return render_template('upload_success.html', filename=filename, add_video=add_video, type=type)
         
         return render_template('user.html', firstname=firstname, form=form, user_past_video=user_past_video)

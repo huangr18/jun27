@@ -10,7 +10,9 @@ CREATE TABLE IF NOT EXISTS uploaded_videos (
     video_id             SERIAL              PRIMARY KEY,
     video_name           TEXT                NOT NULL,
     username             TEXT                NOT NULL,
-    timesdone            NUMERIC
+    timesdone            NUMERIC,
+    exercise_type        TEXT,
+    upload_time          TIMESTAMP           NOT NULL
 );
 
 
