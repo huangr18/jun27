@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS uploaded_videos (
     username             TEXT                NOT NULL,
     timesdone            NUMERIC,
     exercise_type        TEXT,
-    upload_time          TIMESTAMP           NOT NULL
+    upload_time          TIMESTAMP           WITH TIME ZONE      DEFAULT CURRENT_TIMESTAMP
 );
 
 
