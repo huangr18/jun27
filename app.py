@@ -14,7 +14,7 @@ from video_convert import convert
 
 
 app = Flask(__name__, static_folder='static')
-app.secret_key = "hello"
+app.secret_key = "password"
 app.permanent_session_lifetime = timedelta(hours=1)
 app.config['SECRET_KEY'] = 'hello'
 app.config['UPLOAD_FOLDER'] = 'static/files'
@@ -188,7 +188,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         status = user_register(username, firstname, email, password)
-        return status
+        return redirect(url_for("login"))
 
     return render_template('register.html')
 

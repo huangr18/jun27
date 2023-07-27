@@ -57,6 +57,7 @@ def add_video_from_db(username, video_name, exercise_type):
     with engine.connect() as conn:
         query = text("INSERT INTO uploaded_videos (username, video_name, exercise_type) values ('%s', '%s', '%s')" %(username, video_name, exercise_type))
         conn.execute(query)
+        conn.commit()
         result = conn.execute(text("SELECT * FROM uploaded_videos WHERE username = '%s'" %username))
         all_videos = []
         for row in result.mappings().all():
@@ -76,8 +77,9 @@ def get_user(username):
 
 def user_register(username, firstname, email, password):
     with engine.connect() as conn:
-        query = text("INSERT INTO users (username, firstname, email, password ) values (:username, :firstname, :email, :password)")
-        conn.execute(query, username=username, firstname=firstname, email=email, password=password)
+        query = text("INSERT INTO users (username, firstname, email, password ) values ('%s', '%s', '%s', '%s')" %(username, firstname, email, password))
+        conn.execute(query)
+        conn.commit()
     return "success"
 
 
@@ -86,4 +88,8 @@ def update(video_name, time):
         iwantupdate = "UPDATE uploaded_videos SET timesdone = %s WHERE video_name = '%s'"%(time, video_name)
         query = text(iwantupdate)
         conn.execute(query)
+        conn.commit()
     return time
+
+
+
