@@ -41,12 +41,12 @@ def squatscv(filename):
             if len(lmList) != 0:
                 # Right Arm
                 lLegAngle = detector.findAngle(img, 23, 25, 27, False)
-                rLegAngle = detector.findAngle(img, 24, 26, 28)
+                rLegAngle = detector.findAngle(img, 24, 26, 28, False)
                 lHipAngle = detector.findAngle(img, 12, 24, 26, False)
                 rHipAngle = detector.findAngle(img, 11, 23, 27, False)
 
                 lLegper = np.interp(lLegAngle,(190, 280), (100, 0))
-                rLegper = np.interp(rLegAngle,(69, 170), (0, 100)) 
+                rLegper = np.interp(rLegAngle,(180, 190), (0, 100)) 
                 lHipper = np.interp(lHipAngle,(69, 180), (0, 100)) 
                 rHipper = np.interp(rHipAngle,(110, 180), (0, 100))
                 
@@ -57,7 +57,7 @@ def squatscv(filename):
                 # print(img.shape)
 
                 lLegbar = np.interp(lLegAngle,(190, 280), (int(height / 8), int(height / 1.5)))
-                rLegbar = np.interp(rLegAngle, (69, 170), (int(height / 8), int(height / 1.5)))
+                rLegbar = np.interp(rLegAngle, (180, 190), (int(height / 8), int(height / 1.5)))
 
                 bar = rLegbar
                 # bar = (lLegbar + rLegbar) / 2
