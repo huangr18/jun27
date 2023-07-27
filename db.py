@@ -25,7 +25,7 @@ def get_user_firstname_from_db(email):
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM users WHERE email = '%s'" %email))
         user = []
-        for row in result.all():
+        for row in result.mappings().all():
             user.append(dict(row))
         user_firstname = user[0].get('firstname')
         return user_firstname
@@ -37,7 +37,7 @@ def get_username_from_db(email):
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM users WHERE email = '%s'" %email))
         user = []
-        for row in result.all():
+        for row in result.mappings().all():
             user.append(dict(row))
         username = user[0].get('username')
         return username
@@ -47,7 +47,7 @@ def get_password_from_db(email):
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM users WHERE email = '%s'" %email))
         user = []
-        for row in result.all():
+        for row in result.mappings().all():
             user.append(dict(row))
         password = user[0].get('password')
         return password
@@ -55,11 +55,11 @@ def get_password_from_db(email):
 
 def add_video_from_db(username, video_name, exercise_type):
     with engine.connect() as conn:
-        query = text("INSERT INTO uploaded_videos (username, video_name, exercise_type) values (:username, :video_name, :exercise_type)")
-        conn.execute(query, username=username, video_name=video_name, exercise_type=exercise_type)
+        query = text("INSERT INTO uploaded_videos (username, video_name, exercise_type) values ('%s', '%s', '%s')" %(username, video_name, exercise_type))
+        conn.execute(query)
         result = conn.execute(text("SELECT * FROM uploaded_videos WHERE username = '%s'" %username))
         all_videos = []
-        for row in result.all():
+        for row in result.mappings().all():
             all_videos.append(dict(row))
             print(row)
         return all_videos
@@ -68,7 +68,7 @@ def get_user(username):
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM uploaded_videos WHERE username = '%s' ORDER BY upload_time DESC" %username))
         all_videos = []
-        for row in result.all():
+        for row in result.mappings().all():
             all_videos.append(dict(row))
             print(row)
         return all_videos
